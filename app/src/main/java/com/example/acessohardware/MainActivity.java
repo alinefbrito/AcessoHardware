@@ -1,31 +1,18 @@
 package com.example.acessohardware;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.location.GpsStatus;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.media.Image;
 import android.net.Uri;
-import android.net.sip.SipSession;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.io.File;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CAPTURAR_IMAGEM = 1;
@@ -42,18 +29,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void capturarImagem(View v) {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, CAPTURAR_IMAGEM);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, CAPTURAR_IMAGEM);
         }
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-               if (requestCode == CAPTURAR_IMAGEM) {
+        if (requestCode == CAPTURAR_IMAGEM) {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -65,15 +51,18 @@ public class MainActivity extends AppCompatActivity {
                 mostrarMensagem("Imagem não capturada!");
             }
         }
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == 123){
-                Uri imagemSelecionada = data.getData();
-                ImageView imageView = (ImageView) findViewById(R.id.imageView);
-                imageView.setImageURI(imagemSelecionada);
-
-            }
+        if (resultCode == Activity.RESULT_OK && requestCode == 123)
+        {
+            Uri imagemSelecionada = data.getData();
+            //ImageView imageView = (ImageView) findViewById(R.id.imageView);
+            ImageView imageView = new ImageView(this);
+            imageView.setImageURI(imagemSelecionada);
+            LinearLayout ln = (LinearLayout)findViewById(R.id.layoutLinear);
+            ln.addView(imageView);
         }
     }
+
+
     private void mostrarMensagem(String msg){
         Toast.makeText(this, msg,
                 Toast.LENGTH_LONG)

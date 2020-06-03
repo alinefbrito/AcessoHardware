@@ -3,4 +3,5 @@
     <string name="capturar_imagem">Foto</string>
     <string name="visualizar_imagem">Ver na Galeria</string>
     <string name="visualizar_galeria">Selecionar da Galeria</string>
+    <string name="imgcapturada">Imagem da Camera</string>
 </resources>

@@ -5,13 +5,9 @@
     <uses-feature android:name="android.hardware.camera"/>
     <!-- Câmera não é obrigatória -->
     <!--    <uses-feature android:name="android.hardware.camera" android:required="false"/> -->
-    <!-- provedor de localização da rede -->
+
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission
-        android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- gps -->
-    <uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
